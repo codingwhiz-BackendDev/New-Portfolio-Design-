@@ -229,3 +229,68 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("message").value = "";
     };
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Add reveal classes to elements you want to animate
+  const sections = document.querySelectorAll(".section");
+  sections.forEach(section => {
+    section.classList.add("reveal");
+  });
+  
+  // Add specific animation classes to different elements
+  document.querySelectorAll(".service-card").forEach((card, index) => {
+    card.classList.add("reveal-scale");
+    card.classList.add(`delay-${index % 5 + 1}`);
+  });
+  
+  document.querySelectorAll(".achievement-card").forEach((card, index) => {
+    card.classList.add("reveal-scale");
+    card.classList.add(`delay-${index % 5 + 1}`);
+  });
+  
+  document.querySelectorAll(".portfolio-card").forEach((card, index) => {
+    card.classList.add("reveal");
+    card.classList.add(`delay-${index % 5 + 1}`);
+  });
+  
+  document.querySelectorAll(".contact-card").forEach((card, index) => {
+    card.classList.add("reveal-scale");
+    card.classList.add(`delay-${index % 5 + 1}`);
+  });
+  
+  document.querySelectorAll(".timeline-card").forEach((card, index) => {
+    if (index % 2 === 0) {
+      card.classList.add("reveal-left");
+    } else {
+      card.classList.add("reveal-right");
+    }
+  });
+  
+  document.querySelectorAll(".skill-item").forEach((item, index) => {
+    item.classList.add("reveal");
+    item.classList.add(`delay-${index % 5 + 1}`);
+  });
+  
+  // Function to check if element is in viewport
+  function checkReveal() {
+    const reveals = document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale");
+    
+    reveals.forEach(reveal => {
+      const elementTop = reveal.getBoundingClientRect().top;
+      const elementVisible = 150; // Adjust this value to change when the element becomes visible
+      
+      if (elementTop < window.innerHeight - elementVisible) {
+        reveal.classList.add("active");
+      } else {
+        // Uncomment the line below if you want elements to hide again when scrolled away
+        // reveal.classList.remove("active");
+      }
+    });
+  }
+  
+  // Add scroll event listener
+  window.addEventListener("scroll", checkReveal);
+  
+  // Check on initial load
+  checkReveal();
+});
