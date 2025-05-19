@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Preloader
-    window.addEventListener("load", function() {
-        document.querySelector(".preloader").classList.add("hidden");
-    });
+    
 
     // Sticky Header
     window.addEventListener("scroll", function() {
@@ -294,3 +291,46 @@ document.addEventListener("DOMContentLoaded", function() {
   // Check on initial load
   checkReveal();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Preloader - hide after page loads
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const preloader = document.querySelector(".preloader")
+      preloader.classList.add("hidden")
+
+      // Make sure the preloader is completely removed from the flow after animation
+      preloader.addEventListener("transitionend", () => {
+        preloader.style.display = "none"
+
+        // Make sure all sections are visible
+        document.querySelectorAll("section").forEach((section) => {
+          section.style.display = "block"
+          section.style.opacity = "1"
+        })
+
+        // Make sure the main content is visible
+        document.querySelector(".main-content").style.display = "block"
+        document.querySelector(".main-content").style.opacity = "1"
+      })
+    }, 1000) // 1 second delay to show the preloader
+  })
+
+  // Make sure all sections are properly initialized
+  document.querySelectorAll("section").forEach((section) => {
+    // Remove any 'hidden' class that might be applied
+    section.classList.remove("hidden")
+
+    // Ensure proper display and opacity
+    section.style.display = "block"
+    section.style.opacity = "1"
+  })
+
+  // Make sure the active section is visible
+  const activeSection = document.querySelector("section.active") || document.querySelector("section")
+  if (activeSection) {
+    activeSection.style.display = "block"
+    activeSection.style.opacity = "1"
+  }
+})
